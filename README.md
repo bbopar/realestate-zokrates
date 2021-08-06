@@ -15,9 +15,21 @@ The capstone will build upon the knowledge you have gained in the course in orde
 
 # Project submission data
 
-SolnSquareVerifier Contract address: 0x4a8894Bb69Fd5BdbFadE3A42DD9be35aB76E03f0
+contract address: 0x7264bddD494E4B3EF9c5Da94a783B40e793818E3
 
-"abi": [
+abi: [
+{
+"inputs": [
+{
+"internalType": "address",
+"name": "verifier",
+"type": "address"
+}
+],
+"payable": false,
+"stateMutability": "nonpayable",
+"type": "constructor"
+},
 {
 "anonymous": false,
 "inputs": [
@@ -74,7 +86,7 @@ SolnSquareVerifier Contract address: 0x4a8894Bb69Fd5BdbFadE3A42DD9be35aB76E03f0
 {
 "indexed": false,
 "internalType": "address",
-"name": "contractOwner",
+"name": "caller",
 "type": "address"
 }
 ],
@@ -131,7 +143,7 @@ SolnSquareVerifier Contract address: 0x4a8894Bb69Fd5BdbFadE3A42DD9be35aB76E03f0
 {
 "indexed": false,
 "internalType": "address",
-"name": "contractOwner",
+"name": "caller",
 "type": "address"
 }
 ],
@@ -144,7 +156,7 @@ SolnSquareVerifier Contract address: 0x4a8894Bb69Fd5BdbFadE3A42DD9be35aB76E03f0
 {
 "indexed": false,
 "internalType": "address",
-"name": "owner",
+"name": "_owner",
 "type": "address"
 }
 ],
@@ -239,29 +251,8 @@ SolnSquareVerifier Contract address: 0x4a8894Bb69Fd5BdbFadE3A42DD9be35aB76E03f0
 },
 {
 "constant": true,
-"inputs": [
-{
-"internalType": "uint256",
-"name": "tokenId",
-"type": "uint256"
-}
-],
-"name": "getApproved",
-"outputs": [
-{
-"internalType": "address",
-"name": "",
-"type": "address"
-}
-],
-"payable": false,
-"stateMutability": "view",
-"type": "function"
-},
-{
-"constant": true,
 "inputs": [],
-"name": "getBaseTokenURI",
+"name": "baseTokenURI",
 "outputs": [
 {
 "internalType": "string",
@@ -275,8 +266,14 @@ SolnSquareVerifier Contract address: 0x4a8894Bb69Fd5BdbFadE3A42DD9be35aB76E03f0
 },
 {
 "constant": true,
-"inputs": [],
-"name": "getOwner",
+"inputs": [
+{
+"internalType": "uint256",
+"name": "tokenId",
+"type": "uint256"
+}
+],
+"name": "getApproved",
 "outputs": [
 {
 "internalType": "address",
@@ -357,6 +354,21 @@ SolnSquareVerifier Contract address: 0x4a8894Bb69Fd5BdbFadE3A42DD9be35aB76E03f0
 },
 {
 "constant": true,
+"inputs": [],
+"name": "owner",
+"outputs": [
+{
+"internalType": "address",
+"name": "",
+"type": "address"
+}
+],
+"payable": false,
+"stateMutability": "view",
+"type": "function"
+},
+{
+"constant": true,
 "inputs": [
 {
 "internalType": "uint256",
@@ -374,15 +386,6 @@ SolnSquareVerifier Contract address: 0x4a8894Bb69Fd5BdbFadE3A42DD9be35aB76E03f0
 ],
 "payable": false,
 "stateMutability": "view",
-"type": "function"
-},
-{
-"constant": false,
-"inputs": [],
-"name": "pause",
-"outputs": [],
-"payable": false,
-"stateMutability": "nonpayable",
 "type": "function"
 },
 {
@@ -461,65 +464,18 @@ SolnSquareVerifier Contract address: 0x4a8894Bb69Fd5BdbFadE3A42DD9be35aB76E03f0
 "type": "function"
 },
 {
-"constant": true,
+"constant": false,
 "inputs": [
 {
-"internalType": "uint256",
-"name": "",
-"type": "uint256"
-}
-],
-"name": "solutions",
-"outputs": [
-{
-"internalType": "uint256",
-"name": "index",
-"type": "uint256"
-},
-{
-"internalType": "address",
-"name": "account",
-"type": "address"
-},
-{
 "internalType": "bool",
-"name": "isSubmited",
+"name": "status",
 "type": "bool"
 }
 ],
+"name": "setPausedStatus",
+"outputs": [],
 "payable": false,
-"stateMutability": "view",
-"type": "function"
-},
-{
-"constant": true,
-"inputs": [
-{
-"internalType": "uint256",
-"name": "",
-"type": "uint256"
-}
-],
-"name": "submittedSolutions",
-"outputs": [
-{
-"internalType": "uint256",
-"name": "index",
-"type": "uint256"
-},
-{
-"internalType": "address",
-"name": "account",
-"type": "address"
-},
-{
-"internalType": "bool",
-"name": "isSubmited",
-"type": "bool"
-}
-],
-"payable": false,
-"stateMutability": "view",
+"stateMutability": "nonpayable",
 "type": "function"
 },
 {
@@ -682,6 +638,72 @@ SolnSquareVerifier Contract address: 0x4a8894Bb69Fd5BdbFadE3A42DD9be35aB76E03f0
 "type": "function"
 },
 {
+"constant": false,
+"inputs": [
+{
+"internalType": "uint256",
+"name": "index",
+"type": "uint256"
+},
+{
+"internalType": "bytes32",
+"name": "key",
+"type": "bytes32"
+}
+],
+"name": "addSolution",
+"outputs": [],
+"payable": false,
+"stateMutability": "nonpayable",
+"type": "function"
+},
+{
+"constant": false,
+"inputs": [
+{
+"internalType": "address",
+"name": "to",
+"type": "address"
+},
+{
+"internalType": "uint256",
+"name": "tokenId",
+"type": "uint256"
+},
+{
+"internalType": "uint256[2]",
+"name": "a",
+"type": "uint256[2]"
+},
+{
+"internalType": "uint256[2][2]",
+"name": "b",
+"type": "uint256[2][2]"
+},
+{
+"internalType": "uint256[2]",
+"name": "c",
+"type": "uint256[2]"
+},
+{
+"internalType": "uint256[2]",
+"name": "input",
+"type": "uint256[2]"
+}
+],
+"name": "verifyMint",
+"outputs": [
+{
+"internalType": "bool",
+"name": "",
+"type": "bool"
+}
+],
+"payable": false,
+"stateMutability": "nonpayable",
+"type": "function"
+},
+{
 "constant": true,
 "inputs": [
 {
@@ -705,71 +727,16 @@ SolnSquareVerifier Contract address: 0x4a8894Bb69Fd5BdbFadE3A42DD9be35aB76E03f0
 "type": "uint256[2]"
 }
 ],
-"name": "verifyTx",
+"name": "getKey",
 "outputs": [
 {
-"internalType": "bool",
-"name": "r",
-"type": "bool"
+"internalType": "bytes32",
+"name": "",
+"type": "bytes32"
 }
 ],
 "payable": false,
 "stateMutability": "view",
-"type": "function"
-},
-{
-"constant": false,
-"inputs": [
-{
-"internalType": "uint256",
-"name": "index",
-"type": "uint256"
-},
-{
-"internalType": "address",
-"name": "account",
-"type": "address"
-}
-],
-"name": "add",
-"outputs": [],
-"payable": false,
-"stateMutability": "nonpayable",
-"type": "function"
-},
-{
-"constant": false,
-"inputs": [
-{
-"internalType": "uint256[2]",
-"name": "a",
-"type": "uint256[2]"
-},
-{
-"internalType": "uint256[2][2]",
-"name": "b",
-"type": "uint256[2][2]"
-},
-{
-"internalType": "uint256[2]",
-"name": "c",
-"type": "uint256[2]"
-},
-{
-"internalType": "uint256[2]",
-"name": "input",
-"type": "uint256[2]"
-},
-{
-"internalType": "uint256",
-"name": "index",
-"type": "uint256"
-}
-],
-"name": "mintSol",
-"outputs": [],
-"payable": false,
-"stateMutability": "nonpayable",
 "type": "function"
 }
 ]

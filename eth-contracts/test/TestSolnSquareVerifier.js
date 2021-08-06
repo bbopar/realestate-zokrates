@@ -1,34 +1,34 @@
-// Test if a new solution can be added for contract - SolnSquareVerifier
+const SquareVerifier = artifacts.require('Verifier');
 const SolnSquareVerifier = artifacts.require('SolnSquareVerifier');
-const proof = require('./proof.json');
-const truffleAssert = require('truffle-assertions');
+const SquareProof = require('./proof.json');
 
-// Test if an ERC721 token can be minted for contract - SolnSquareVerifier
-contract('TestSolnSquareVerifier', async (accounts) => {
+contract('TestSolnSquareVerifier', accounts => {
 
-    let account_1 = accounts[0];
-    let firstKey;
+    const owner = accounts[0];
+    const account_1 = accounts[1];
 
-    describe('TestingSolnSquareVerifier', () => {
+    // Test if a new solution can be added for contract - SolnSquareVerifier
+    describe('Test for adding new solution for contract', () => {
         beforeEach(async () => {
-            try {
-                this.contract = await SolnSquareVerifier.new({ from: account_1 })
-            } catch (error) {
-                console.log('error:::', error);
-            }
+            const squareVerifier = await SquareVerifier.new({ from: owner });
+            this.contract = await SolnSquareVerifier.new(squareVerifier.address, { from: owner });
         })
 
-        // should add solution
-        it('should test add solution', async () => {
+        // should test verify mintNFT
+        it('should test verify mintNFT', async () => {
             try {
                 let eventToBeEmitted = 'SolutionSubmitted';
                 let index = 1;
-                let result = await this.contract.add.sendTransaction(
-                    index,
+                let result = await this.contract.verifyMint(
                     account_1,
+                    index,
+                    SquareProof.proof.a,
+                    SquareProof.proof.b,
+                    SquareProof.proof.c,
+                    SquareProof.inputs,
                     {
-                        from: account_1
-                    }
+                        from: owner
+                    },
                 );
 
                 assert.equal(result.logs[0].event, eventToBeEmitted, "Error submitting solution");
@@ -37,16 +37,24 @@ contract('TestSolnSquareVerifier', async (accounts) => {
             }
         });
 
-        it('should test NTF mint', async () => {
+        it('should test add solution (method: addSolution)', async () => {
             try {
                 let eventToBeEmitted = 'SolutionSubmitted';
+
+                let key = await this.contract.getKey(
+                    SquareProof.proof.a,
+                    SquareProof.proof.b,
+                    SquareProof.proof.c,
+                    SquareProof.inputs,
+                    {
+                        from: account_1,
+                    }
+                );
+
                 let index = 2;
-                let res = await this.contract.mint.sendTransaction(
-                    proof.proof.a,
-                    proof.proof.b,
-                    proof.proof.c,
-                    proof.inputs,
+                let res = await this.contract.addSolution(
                     index,
+                    key,
                     {
                         from: account_1,
                     },
@@ -57,5 +65,8 @@ contract('TestSolnSquareVerifier', async (accounts) => {
                 console.log('error:', error);
             }
         });
-    });
-});
+    })
+
+
+
+})
