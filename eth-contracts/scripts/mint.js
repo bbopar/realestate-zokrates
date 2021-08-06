@@ -46,7 +46,6 @@ async function main() {
                 // console.log("i " + i + "\n");
                 // console.log("proofs " + proofs + "\n");
                 // console.log("inputs " + inputs + "\n");
-                console.log('lululuo:::::::', zokratesProof[i].proof.a);
                 let tx2 = await r2token.methods.verifyMint(
                     OWNER_ADDRESS,
                     i,
