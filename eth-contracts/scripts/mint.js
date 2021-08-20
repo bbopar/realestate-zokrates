@@ -19,14 +19,11 @@ const zokratesProof = [
 
 const web3 = require('web3')
 const OWNER_ADDRESS = '0x58830D73E5a6fF4938c6EE4DbE0397e1afA68dAb';
-const CONTRACT_ADDRESS = '0x7264bddD494E4B3EF9c5Da94a783B40e793818E3';
+const CONTRACT_ADDRESS = '0x1FC63A7c0C8361fE838c10a78EEfCfB9B06fabd3';
 const NETWORK = 'rinkeby';
 const MNEMONIC = 'village suggest hundred rough snap ecology pear mirror audit bullet awake faith';
 const INFURA_KEY = '4df0b31c12ea40328bd47b70a1b30d5e';
-// if (!MNEMONIC || !INFURA_KEY || !OWNER_ADDRESS || !NETWORK) {
-//     console.error("Please set a mnemonic, infura key, owner, network, and contract address.")
-//     return
-// }
+
 const contract = require('../build/contracts/SolnSquareVerifier.json');
 const ABI = contract.abi;
 async function main() {
@@ -36,16 +33,8 @@ async function main() {
     )
     if (CONTRACT_ADDRESS) {
         const r2token = new web3Instance.eth.Contract(ABI, CONTRACT_ADDRESS, { gasLimit: "4500000" })
-        console.log('r2token', r2token);
-        for (let i = 1; i < zokratesProof.length; i++) {
+        for (let i = 0; i <= zokratesProof.length; i++) {
             try {
-                // const proofs = Object.values(zokratesProof[i].proof);
-                // console.log('proofs', proofs);
-                // const inputs = zokratesProof[i].inputs;
-                // console.log("OWNER_ADDRESS " + OWNER_ADDRESS + "\n");
-                // console.log("i " + i + "\n");
-                // console.log("proofs " + proofs + "\n");
-                // console.log("inputs " + inputs + "\n");
                 let tx2 = await r2token.methods.verifyMint(
                     OWNER_ADDRESS,
                     i,

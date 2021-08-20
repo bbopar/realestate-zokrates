@@ -15,7 +15,9 @@ The capstone will build upon the knowledge you have gained in the course in orde
 
 # Project submission data
 
-contract address: 0x7264bddD494E4B3EF9c5Da94a783B40e793818E3
+https://testnets.opensea.io/collection/havefunusingsolidity-ronlynmxis
+
+contract address: 0x1FC63A7c0C8361fE838c10a78EEfCfB9B06fabd3
 
 abi: [
 {
